@@ -1,4 +1,3 @@
-import json
 import streamlit as st
 import pandas as pd
 import datetime
@@ -6,7 +5,7 @@ from datetime import timedelta
 import IO
 
 # load pantry data, df is a dictionary
-df = IO.load_data()
+df = IO.load_data("pantry_inventory.csv")
 
 st.header("Add a Pantry Item")
 with st.form("add_item_form"):
@@ -24,9 +23,10 @@ with st.form("add_item_form"):
             'Purchase Date': purchase_date,
             'Expiration Date': expiration_date
         }])
-        IO.save_data(new_item)
+        IO.save_data(new_item, "pantry_inventory.csv")
         st.success(f"{item_name} added to pantry!")
         
 # display the pantry items
 st.header("Pantry Items")
-st.dataframe(IO.load_data())
+st.dataframe(IO.load_data("pantry_inventory.csv"))
+
